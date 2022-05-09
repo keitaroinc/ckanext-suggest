@@ -36,7 +36,7 @@ To install ckanext-suggest:
       <str name="lookupImpl">AnalyzingInfixLookupFactory</str>
       <str name="dictionaryImpl">DocumentDictionaryFactory</str>
       <str name="field">title</str>
-      <str name="minPrefixChars">3</str>
+      <str name="minPrefixChars">2</str>
       <str name="suggestAnalyzerFieldType">text</str>
       <str name="buildOnStartup">false</str>
       <str name="highlight">false</str>
@@ -46,7 +46,7 @@ To install ckanext-suggest:
       <str name="lookupImpl">AnalyzingInfixLookupFactory</str>
       <str name="dictionaryImpl">DocumentDictionaryFactory</str>
       <str name="field">notes</str>
-      <str name="minPrefixChars">3</str>
+      <str name="minPrefixChars">2</str>
       <str name="suggestAnalyzerFieldType">text</str>
       <str name="buildOnStartup">false</str>
       <str name="highlight">false</str>
@@ -92,7 +92,7 @@ sudo service solr restart
 
 6. Clone the source and install it on the virtualenv
 ```commandline
-git clone https://github.com/duskobogdanovski/ckanext-suggest.git
+git clone https://github.com/keitaroinc/ckanext-suggest.git
 cd ckanext-suggest
 pip install -e .
 pip install -r requirements.txt

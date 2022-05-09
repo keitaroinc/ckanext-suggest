@@ -24,7 +24,7 @@ setup(
     long_description_content_type="text/markdown",
 
     # The project's main homepage.
-    url='https://github.com/duskobogdanovski/ckanext-suggest',
+    url='https://github.com/keitaroinc/ckanext-suggest.git',
 
     # Author details
     author='''Keitaro Inc''',
