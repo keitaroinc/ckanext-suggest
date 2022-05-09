@@ -1,0 +1,14 @@
+suggest-js:
+  filter: rjsmin
+  output: ckanext-suggest/%(version)s-suggest.js
+  contents:
+    - js/suggest.js
+  extra:
+    preload:
+      - base/main
+
+suggest-css:
+  filter: cssrewrite
+  output: ckanext-suggest/%(version)s-suggest.css
+  contents:
+    - css/suggest.css

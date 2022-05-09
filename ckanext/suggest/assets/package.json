@@ -1,0 +1,22 @@
+{
+  "name": "suggest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Keitaro Inc.",
+  "license": "ISC",
+  "dependencies": {
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-clean-css": "^3.9.4",
+    "gulp-less": "^4.0.1",
+    "typeface-barlow": "0.0.71"
+  },
+  "devDependencies": {
+    "bootstrap": "^3.3.7",
+    "gulp": "^4.0.2",
+    "less": "^3.9.0"
+  }
+}

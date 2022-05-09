@@ -1,0 +1,11 @@
+{% ckan_extends %}
+
+{%- block styles %}
+  {{ super() }}
+  {% asset 'suggest/suggest-css' %}
+{% endblock -%}
+
+{%- block scripts %}
+  {{ super() }}
+  {% asset 'suggest/suggest-js' %}
+{% endblock -%}
