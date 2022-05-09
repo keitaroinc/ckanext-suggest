@@ -120,7 +120,7 @@ None at the moment.
 To install ckanext-suggest for development, activate your CKAN virtualenv and
 do:
 
-    git clone https://github.com/duskobogdanovski/ckanext-suggest.git
+    git clone https://github.com/keitaroinc/ckanext-suggest.git
     cd ckanext-suggest
     python setup.py develop
     pip install -r dev-requirements.txt
