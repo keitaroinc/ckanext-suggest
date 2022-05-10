@@ -1,4 +1,4 @@
-[![Tests](https://github.com/duskobogdanovski/ckanext-suggest/workflows/Tests/badge.svg?branch=main)](https://github.com/duskobogdanovski/ckanext-suggest/actions)
+[![Tests](https://github.com/keitaroinc/ckanext-suggest/workflows/Tests/badge.svg?branch=main)](https://github.com/duskobogdanovski/ckanext-suggest/actions)
 
 # ckanext-suggest
 
