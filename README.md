@@ -105,11 +105,14 @@ pip install -r requirements.txt
 ```commandline
 sudo service apache2 reload
 ```
-8. Build the lookup data structure in SOLR: TODO
+8. Build the lookup data structure in SOLR:
 ```commandline
 ckan -c /etc/ckan/default/ckan.ini suggest buid
 ```
-9. Set up a CRON job that will update the lookup data structure on regular basis: TODO
+9. Set up a CRON job that will update the lookup data structure on regular basis, for example:
+```commandline
+@daily ckan -c /etc/ckan/default/ckan.ini suggest buid
+```
 
 ## Config settings
 
