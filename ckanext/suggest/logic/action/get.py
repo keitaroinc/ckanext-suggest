@@ -15,18 +15,29 @@ log = logging.getLogger(__name__)
 def suggest(context, data_dict):
     u'''Returns SOLR suggestions based on an input query (text)
     '''
-    q = data_dict.get('q', None)
-    suggestions = _get_solr_suggestions(q)
+
+    do_suggest = data_dict.get('suggest')
+    build = data_dict.get('build')
+    query = data_dict.get('q')
+
+    suggestions = _get_solr_suggest(do_suggest, build, query)
     return suggestions
 
 
-def _get_solr_suggestions(q) -> List[str]:
+def _get_solr_suggest(do_suggest='true', build='false', query=None) -> List[str]:
     u'''Makes a connection to SOLR suggester url and
     returns parsed result of the available suggestions
-    based on the query term.
+    based on the query term and can also be used to build
+    the lookup data structure.
 
-    :param q: the query term to search for suggestions
-    :type q: str
+    :param do_suggest: parameter that tells solr
+    whether to make suggestions or not (true or false)
+    :type do_suggest: str
+    :param build: parameter that tells solr
+    whether to build the lookup data structure or not (true or false)
+    :type build: str
+    :param query: the query term to search for suggestions
+    :type query: str
     :returns: List of suggestions
     :rtype: list[str]
     '''
@@ -34,7 +45,9 @@ def _get_solr_suggestions(q) -> List[str]:
     solr_url, solr_user, solr_password = SolrSettings.get()
     suggest_solr_url = solr_url + u'{}'.format(u'/suggest')
     params = {
-        u'suggest.q': q,
+        u'suggest': do_suggest,
+        u'suggest.build': build,
+        u'suggest.q': query,
         u'wt': u'json'
     }
 
@@ -44,7 +57,8 @@ def _get_solr_suggestions(q) -> List[str]:
             params=params,
             auth=HTTPBasicAuth(solr_user,
                                solr_password),
-            timeout=60)
+            timeout=60,
+            verify=True)
     except requests.exceptions.Timeout as e:
         log.error(u'Connection to server '
                   u'{} timed out: {}'.format(suggest_solr_url, e))
@@ -55,7 +69,7 @@ def _get_solr_suggestions(q) -> List[str]:
         log.error(u'Unhandled error: '
                   u'{}: {}'.format(suggest_solr_url, e))
 
-    result = _parse_solr_response(q, response.json())
+    result = _parse_solr_response(query, response.json())
 
     return result
 
@@ -69,11 +83,17 @@ def _parse_solr_response(q, solr_response) -> List[str]:
     :returns: List of suggestions
     :rtype: list[str]
     '''
-    suggest_root = solr_response['suggest']
-    title_suggestions = [item['term'] for item in
-                         suggest_root['datasetTitleSuggester'][q]['suggestions']]
-    # Maybe the notes suggestions are not needed
-    notes_suggestions = suggest_root['datasetNotesSuggester'][q]['suggestions']
-    tags_suggestions = [item['term'] for item in
-                        suggest_root['datasetTagsSuggester'][q]['suggestions']]
-    return title_suggestions + tags_suggestions
+    res = []
+    suggest_root = solr_response.get('suggest', None)
+
+    if suggest_root:
+        title_suggestions = [item['term'] for item in
+                             suggest_root['datasetTitleSuggester'][q]['suggestions']]
+        # Maybe the notes suggestions are not needed
+        notes_suggestions = suggest_root['datasetNotesSuggester'][q]['suggestions']
+        tags_suggestions = [item['term'] for item in
+                            suggest_root['datasetTagsSuggester'][q]['suggestions']]
+
+        res = tags_suggestions + title_suggestions
+
+    return res

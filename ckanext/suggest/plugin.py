@@ -2,11 +2,13 @@ import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 
 from ckanext.suggest.logic.action.get import suggest
+import ckanext.suggest.cli as cli
 
 
 class SuggestPlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IActions)
+    plugins.implements(plugins.IClick)
 
     # IConfigurer
 
@@ -21,3 +23,8 @@ class SuggestPlugin(plugins.SingletonPlugin):
         return {
             u'suggest': suggest
         }
+
+    # IClick
+
+    def get_commands(self):
+        return cli.get_commands()
