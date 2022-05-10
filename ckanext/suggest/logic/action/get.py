@@ -50,6 +50,7 @@ def _get_solr_suggest(do_suggest='true', build='false', query=None) -> List[str]
         u'suggest.q': query,
         u'wt': u'json'
     }
+    result = []
 
     try:
         response = requests.get(
@@ -69,7 +70,11 @@ def _get_solr_suggest(do_suggest='true', build='false', query=None) -> List[str]
         log.error(u'Unhandled error: '
                   u'{}: {}'.format(suggest_solr_url, e))
 
-    result = _parse_solr_response(query, response.json())
+    if response.status_code == 200:
+        result = _parse_solr_response(query, response.json())
+    else:
+        log.error('Suggest request failed for url: {}, reason: {}.'
+                  .format(suggest_solr_url, response.status_code))
 
     return result
 
