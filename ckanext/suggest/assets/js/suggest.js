@@ -99,8 +99,11 @@
                         .fail(function(error) {
                             console.log("Get suggestions: " + error.statusText);
                         });
+                } else {
+                    closeAllLists();
                 }
             }, 300);
+
         }
     }
 
