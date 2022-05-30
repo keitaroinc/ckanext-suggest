@@ -3,13 +3,16 @@
 
     var timer = null;
     var currentFocus;
-    var searchInput = $('#field-giant-search').length > 0 ?
-        $('#field-giant-search') : $('#field-main-search');
-    var input = document.getElementById('field-giant-search') ?
-        document.getElementById('field-giant-search') : document.getElementById('field-main-search');
+    var searchInput = $('#field-main-search').length > 0 ?
+        $('#field-main-search') : $('#field-giant-search');
+
+    var input = document.getElementById('field-main-search') ?
+        document.getElementById('field-main-search') : document.getElementById('field-giant-search');
+
     var autocompleteItems = $('#autocomplete-list').find('div');
-    var searchGroup = $('.search-input-group').length > 0 ?
-        $('.search-input-group') : $('.search-giant')
+
+    var searchGroup = $('.search-giant').length > 0 ?
+        $('.search-giant') : $('.search-input-group')
 
     var api = {
         get: function(action, params, async) {
